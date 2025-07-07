@@ -29,7 +29,8 @@ namespace InventoryManagement.Infrastructure.Services
                 Price = p.Price,
                 StockQuantity = p.StockQuantity,
                 CreatedAt = p.CreatedAt,
-                Discount = p.Discount
+                Discount = p.Discount,
+                CategoryId = p.Category?.Id,
             }).ToList();
         }
 
