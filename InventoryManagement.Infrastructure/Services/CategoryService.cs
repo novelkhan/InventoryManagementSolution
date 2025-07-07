@@ -25,7 +25,7 @@ namespace InventoryManagement.Infrastructure.Services
             {
                 Id = c.Id,
                 Name = c.Name,
-                Description = c.Description // এটি null হবে কারণ ডেটাবেসে নেই
+                Description = c.Description // এখন এটি কাজ করবে
             }).ToList();
         }
 
@@ -34,8 +34,8 @@ namespace InventoryManagement.Infrastructure.Services
             var category = new Category
             {
                 Name = categoryDto.Name,
+                Description = categoryDto.Description, // যোগ করা হয়েছে
                 CreatedAt = DateTime.Now
-                // Description বাদ দিয়েছি কারণ ডেটাবেসে নেই
             };
             await _categoryRepository.AddAsync(category);
         }
@@ -46,8 +46,8 @@ namespace InventoryManagement.Infrastructure.Services
             if (category != null)
             {
                 category.Name = categoryDto.Name;
+                category.Description = categoryDto.Description; // যোগ করা হয়েছে
                 category.CreatedAt = DateTime.Now; // অপশনাল
-                // Description বাদ দিয়েছি কারণ ডেটাবেসে নেই
                 await _categoryRepository.UpdateAsync(category);
             }
         }

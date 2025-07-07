@@ -43,7 +43,7 @@ namespace InventoryManagement.Infrastructure.Repositories
             if (category != null)
             {
                 _context.Categories.Remove(category);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); 
             }
         }
     }
