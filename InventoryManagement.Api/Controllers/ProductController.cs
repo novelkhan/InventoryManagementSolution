@@ -28,8 +28,13 @@ namespace InventoryManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductDto product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); // ত্রুটির বিস্তারিত ফেরত
+            }
             await _productService.AddProduct(product);
-            return CreatedAtAction(nameof(GetAll), new { id = product.Id }, product);
+            var addedProduct = (await _productService.GetAllProducts()).Last(); // সর্বশেষ যোগ করা প্রোডাক্ট
+            return CreatedAtAction(nameof(GetAll), new { id = addedProduct.Id }, addedProduct);
         }
 
         [HttpPut("{id}")]

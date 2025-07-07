@@ -38,10 +38,10 @@ namespace InventoryManagement.Infrastructure.Services
             var product = new Product
             {
                 Name = productDto.Name,
-                // CategoryId সরানো বা ফর্ম থেকে পাওয়া ডেটা দিয়ে সেট করা
+                CategoryId = (int)productDto.CategoryId,
                 Price = productDto.Price,
                 StockQuantity = productDto.StockQuantity,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.Now, // সার্ভারে সেট
                 Discount = productDto.Discount
             };
             await _productRepository.AddAsync(product);
@@ -53,6 +53,7 @@ namespace InventoryManagement.Infrastructure.Services
             if (product != null)
             {
                 product.Name = productDto.Name;
+                product.CategoryId = (int)productDto.CategoryId; // আপডেট করা
                 product.Price = productDto.Price;
                 product.StockQuantity = productDto.StockQuantity;
                 product.Discount = productDto.Discount;
