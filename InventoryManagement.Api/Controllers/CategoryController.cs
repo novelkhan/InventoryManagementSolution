@@ -27,7 +27,9 @@ namespace InventoryManagement.Api.Controllers
         public async Task<IActionResult> Create([FromBody] CategoryDto categoryDto)
         {
             await _categoryService.AddCategory(categoryDto);
-            return Ok();
+            var categories = await _categoryService.GetAllCategories(); // সমস্ত ক্যাটাগরি লোড করুন
+            var addedCategory = categories.Last(); // সর্বশেষ যোগ করা ক্যাটাগরি
+            return Ok(addedCategory); // নতুন ক্যাটাগরি ফেরত দিন
         }
 
         [HttpPut("{id}")]
