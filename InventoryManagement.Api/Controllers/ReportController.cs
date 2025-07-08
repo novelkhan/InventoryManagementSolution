@@ -42,9 +42,12 @@ namespace InventoryManagement.Api.Controllers
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"SELECT p.Id, p.Name, c.Name AS CategoryName, p.Price, p.StockQuantity, p.CreatedAt, p.Discount 
-                                   FROM Products p 
-                                   LEFT JOIN Categories c ON p.CategoryId = c.Id";
+                    //string query = @"SELECT p.Id, p.Name, c.Name AS CategoryName, p.Price, p.StockQuantity, p.CreatedAt, p.Discount 
+                    //               FROM Products p 
+                    //               LEFT JOIN Categories c ON p.CategoryId = c.Id";
+                    string query = @"SELECT p.Id, p.Name, c.Name AS CategoryName, p.CategoryId, p.Price, p.StockQuantity, p.CreatedAt, p.Discount 
+                                    FROM Products p 
+                                    LEFT JOIN Categories c ON p.CategoryId = c.Id";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
