@@ -25,11 +25,10 @@ namespace InventoryManagement.Api.Controllers
         [HttpGet("product-report")]
         public IActionResult GetProductReport()
         {
-            string reportPath = string.Empty; // reportPath ইনিশিয়ালাইজ করা
+            string reportPath = Path.Combine(_env.WebRootPath, "Reports", "ProductReport.rdlc"); // ইনিশিয়ালাইজেশন সরাসরি করা
             try
             {
                 var connectionString = _configuration.GetConnectionString("DefaultConnection");
-                reportPath = Path.Combine(_env.WebRootPath, "Reports", "ProductReport.rdlc"); // WebRootPath ব্যবহার
 
                 // RDLC ফাইলের অস্তিত্ব চেক
                 if (!System.IO.File.Exists(reportPath))
@@ -69,7 +68,7 @@ namespace InventoryManagement.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error generating product report at path: {ReportPath}", reportPath); // reportPath এখানে সুরক্ষিত
+                _logger.LogError(ex, "Error generating product report at path: {ReportPath}", reportPath);
                 return StatusCode(500, new { error = ex.Message, stackTrace = ex.StackTrace });
             }
         }
